@@ -12,6 +12,7 @@ class Solution {
         list.add(i);
         i = i * 10 ;
         for(int j = 0 ; j <= 9 ; j++){
+            if(i + j > n)break ;
             recurs(list , i + j , n );
         }
     }
