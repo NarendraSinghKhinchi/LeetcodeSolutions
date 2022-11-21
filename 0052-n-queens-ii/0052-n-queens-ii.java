@@ -1,34 +1,31 @@
 class Solution {
     public int totalNQueens(int n) {
-        int chess[][] = new int[n][n] ;
-        return recursion(chess , 0 ) ;
+        
+        // boolean chess[][] = new boolean[n][n] ;
+        boolean cols[] = new boolean[n];
+        boolean diag[] = new boolean[n + n - 1] ;
+        boolean rev[] = new boolean[n + n - 1] ;
+        return recurs(n , cols , diag , rev , 0);
     }
-    public static int recursion(int chess[][] , int row){
-        if(row == chess.length){
-            // it means we just found a solution
+    public int recurs(int chess, boolean cols[], boolean diag[], boolean rev[], int row ){
+        if(row == chess){
             return 1 ;
         }
         int count = 0 ;
-        for(int col = 0 ; col < chess.length ; col++){
-            if(safe(chess , row , col)){
-                chess[row][col] = 1 ;
-                count += recursion(chess , row + 1 );
-                chess[row][col] = 0;
+        for(int col = 0 ; col < chess ;col++){
+            if(!cols[col] &&  !diag[row+col] && !rev[row - col + chess - 1] ){
+                cols[col] = true ;
+                diag[row + col] = true ;
+                rev[row - col + chess - 1] = true ;
+                
+                count += recurs(chess , cols , diag , rev , row+1) ;
+                    
+                cols[col] = false ;
+                diag[row + col] = false ;
+                rev[row - col + chess - 1] = false ;     
             }
         }
         return count ;
     }
-    public static boolean safe(int chess[][] , int row , int col){
-        
-        for(int i = row ; i >= 0 ; i-- ){
-            if(chess[i][col] != 0)return false;
-        }
-        for(int i = row , j = col ; i >= 0 && j>= 0 ; i-- , j--){
-            if(chess[i][j] != 0)return false ;
-        }
-        for(int i = row , j = col ; i >= 0 && j < chess.length ; i-- , j++){
-            if(chess[i][j] != 0)return false ;
-        }
-        return true ;
-    } 
+    
 }
