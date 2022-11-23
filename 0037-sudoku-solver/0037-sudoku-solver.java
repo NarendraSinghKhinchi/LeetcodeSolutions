@@ -42,10 +42,10 @@ class Solution {
             if(board[j][col] == ch )return false ;
         }
         // check in the current cube
-        // int crow = row % 3 ;
-        // int ccol = col % 3 ;
-        row = row / 3 * 3 ; 
-        col = col / 3 * 3  ;
+        int crow = row % 3 ;
+        int ccol = col % 3 ;
+        row = row - crow ; 
+        col = col -ccol  ;
         for(int i = 0 ; i < 3 ; i++){
             for(int j = 0 ; j < 3 ; j++){
                 if(board[row + i][col + j] == ch)return false; 
