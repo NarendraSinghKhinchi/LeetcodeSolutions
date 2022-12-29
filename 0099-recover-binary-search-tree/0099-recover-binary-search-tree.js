@@ -11,8 +11,8 @@
  * @return {void} Do not return anything, modify root in-place instead.
  */
 var recoverTree = function(root) {
-    var first = null ;
-    var second = null ;
+    let first = null ;
+    let second = null ;
     var prev = null ;
     inorder(root);
     function inorder(root){
