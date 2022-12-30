@@ -111,7 +111,7 @@ class GfG
         int k = 0 ;
         for(int i = 0 ; i < levelorder.length ; i++){
             int databaseIdx = hm.get(levelorder[i]) ;
-            if(inorder[idx] == levelorder[i])continue ;
+            // if(inorder[idx] == levelorder[i])continue ;
             if(databaseIdx >= ins && databaseIdx <= ine){
                 if(databaseIdx < idx){
                     left[j++] = levelorder[i] ;
