@@ -15,6 +15,7 @@ class Solution {
             }
             j++ ;
         }
+        // the below code can be avoided by the use of function containsValue();
         j = 0 ;
         HashMap<Character , String> mp = new HashMap<>();
         for(int i =0 ; i < pattern.length() ; i++){
