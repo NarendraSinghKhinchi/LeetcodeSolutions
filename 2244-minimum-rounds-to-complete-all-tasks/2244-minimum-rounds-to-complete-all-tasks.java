@@ -8,11 +8,14 @@ class Solution {
 
         int minimumRounds = 0;
         for(int count : freq.values()){
-            if(count == 1)return -1 ;
+           
             if(count % 3 == 0){
                 minimumRounds += count / 3 ;
-            }else {
-                minimumRounds += count / 3 + 1 ;
+            }else if(count % 3 == 2){
+                minimumRounds += count / 3 + 1  ;
+            }else if(count % 3 == 1){
+                if(count - 4 < 0)return -1 ;
+                minimumRounds += (count-4)/3 + 2; 
             }
         }
         return minimumRounds ;
