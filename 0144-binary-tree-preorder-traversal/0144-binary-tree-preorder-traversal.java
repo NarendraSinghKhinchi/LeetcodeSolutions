@@ -29,7 +29,7 @@ class Solution {
                     list.add(curr.val);
                     rightmost.right = curr ;
                     curr = curr.left ;
-                }else{// destroy thread 
+                }else{ // destroy thread 
                     rightmost.right = null ;
                     curr = curr.right ;
                 }
