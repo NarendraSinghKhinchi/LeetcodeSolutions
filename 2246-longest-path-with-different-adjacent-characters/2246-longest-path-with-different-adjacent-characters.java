@@ -7,7 +7,6 @@ class Solution {
             // tree[i].add(parent[i]);
             tree[parent[i]].add(i) ;
         }
-        for(ArrayList<Integer> child : tree)System.out.println(child);
         this.max = 0 ;
         dfs(tree , s , 0 , -1);
         return max ;
@@ -18,7 +17,8 @@ class Solution {
         int first = 0 ;
         int second = 0 ;
         for(int x : tree[v]){
-            int nxt = dfs(tree  , s , x , parent);
+            if(x != parent){
+            int nxt = dfs(tree  , s , x , v);
             if(s.charAt(x) != s.charAt(v)){
                 if(nxt > first){
                     second = first ;
@@ -26,6 +26,7 @@ class Solution {
                 }else if(nxt > second){
                     second = nxt ;
                 }
+            }
             }
         }
         
