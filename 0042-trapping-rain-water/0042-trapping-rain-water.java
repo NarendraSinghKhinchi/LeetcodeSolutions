@@ -1,20 +1,20 @@
 class Solution {
     public int trap(int[] height) {
-        int pr[] = new int[height.length];
-        pr[0] = height[0];
-        for(int i = 1 ; i<height.length ; i++){
-            pr[i] = Math.max(height[i] , pr[i-1]);
-        }
-        
-        int su[] = new int[height.length];
-        su[height.length - 1] = height[height.length-1];
-        for(int i = height.length-2 ; i >= 0 ; i--){
-            su[i] = Math.max(height[i] , su[i+1]);
-        }
-        
+        int l = 0 ; 
+        int r = height.length - 1 ;
+        int lmax = 0 ;
+        int rmax = 0 ;
         int ans = 0 ;
-        for(int i = 0 ; i < height.length ; i++){
-            ans += (Math.min(pr[i] , su[i]) - height[i] ) ;
+        while(l < r){
+            lmax = Math.max(lmax , height[l]);
+            rmax = Math.max(rmax , height[r]);
+            if(lmax < rmax){
+                ans += lmax - height[l];
+                l++ ;
+            }else{
+                ans += rmax - height[r];
+                r-- ;
+            }
         }
         return ans ;
     }
