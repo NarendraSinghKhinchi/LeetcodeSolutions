@@ -3,6 +3,7 @@ class Solution {
         Stack<Integer> st = new Stack<>();
         char sign = '+' ;
         int len = s.length();
+        int lastnum = 0 , result = 0 ;
         for(int i = 0 ; i < len ; i++){
             char ch = s.charAt(i);
             if(Character.isDigit(ch)){
@@ -13,22 +14,20 @@ class Solution {
                 }
                 i-- ;
                 if(sign == '+'){
-                    st.push(val);
+                    result += lastnum ;
+                    lastnum = val ;
                 }else if(sign == '-'){
-                    st.push(-val);
+                    result += lastnum ;
+                    lastnum = -val ;
                 }else if(sign == '*'){
-                    int a= st.pop();
-                    st.push(a*val);
+                    lastnum = lastnum * val ;
                 }else if(sign == '/'){
-                    int a= st.pop();
-                    st.push(a/val);
+                    lastnum = lastnum / val ;
                 }
             }else if(ch != ' '){
                 sign = ch ;
             }
         }
-        int ans = 0 ;
-        while(st.size() > 0) ans += st.pop();
-        return ans ;
+        return lastnum + result ;
     }
 }
