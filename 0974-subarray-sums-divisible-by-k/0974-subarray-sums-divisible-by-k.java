@@ -5,11 +5,11 @@ class Solution {
         HashMap<Integer,Integer> hm = new HashMap<>();
         hm.put(0,1);
         for(int num : nums){
-            int key = (sum + num%k + k )%k ;
-            if(hm.containsKey(key)) count += hm.get(key);
-            hm.put(key , hm.getOrDefault(key , 0)+1);
+            int key = (num%k + k )%k ;
+            sum += key ;
+            if(hm.containsKey(sum % k)) count += hm.get(sum % k);
+            hm.put(sum%k , hm.getOrDefault(sum%k , 0)+1);
             // System.out.println(hm);
-            sum = key ;
         }
         return count ;
     }
