@@ -28,16 +28,16 @@ class Solution
     public int minOperation(int n)
     {
         //code here.
-        int op = 0 ;
-        while(n > 0){
-            if(n!= 2 && n%2 == 0){
-                n = n/2 ;
-                op++ ;
+        int dp[] = new int[n+1] ;
+        dp[0] = 1 ;
+        dp[1] = 1 ;
+        for(int i = 2 ; i <= n ; i++){
+            if(i % 2 == 0){
+                dp[i] = dp[i/2]+1; 
             }else{
-                n -= 1 ;
-                op++ ;
+                dp[i] = dp[i-1]+1 ;
             }
         }
-        return op ;
+        return dp[n] ;
     }
 }
