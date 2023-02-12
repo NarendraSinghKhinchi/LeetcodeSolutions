@@ -23,7 +23,8 @@ class Solution {
         }
         
         if(node != 0){
-            fuel += Math.ceil((double) rep / seats) ;
+            fuel += Math.ceil((double)rep / seats) ;
+            
         }
         return rep ;
     }
