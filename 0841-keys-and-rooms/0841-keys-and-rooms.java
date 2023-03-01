@@ -1,19 +1,22 @@
 class Solution {
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
-        boolean visited[] = new boolean[rooms.size()] ;
-        int count = 0 ;
-        Queue<Integer> q = new ArrayDeque<>() ;
-        q.add(0) ;
-        while(q.size() > 0){
-            int rem = q.remove() ;
-            if(visited[rem] == true )continue;
-            visited[rem] = true ;
-            count++ ;
-            List<Integer> children = rooms.get(rem) ;
-            for(int x : children)q.add(x) ;
-            // System.out.println(q);
+        boolean visited[] = new boolean[rooms.size()];
+        int visit = 0 ;
+        Queue<Integer> q = new ArrayDeque<>();
+        q.add(0);
+        while(q.isEmpty() == false){
+            int curr = q.remove();
+            
+            List<Integer> available = rooms.get(curr);
+            visited[curr] = true ;
+            for(int x : available){
+                if(!visited[x]){
+                    q.add(x);
+                    
+                }
+            }
         }
-        // System.out.println(count);
-        return count == rooms.size() ? true : false ;
+        for(boolean bool : visited)if(!bool)return false ;
+        return true ;
     }
 }
