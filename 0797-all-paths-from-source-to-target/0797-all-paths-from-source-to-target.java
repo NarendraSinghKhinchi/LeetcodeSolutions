@@ -2,6 +2,7 @@ class Solution {
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
         
         // boolean visited[] = new boolean[graph.length] ;
+        // not required because given is directed acyclic cycle
         List<List<Integer>> and = new ArrayList<>() ;
         List<Integer> path = new ArrayList<>() ;
         path.add(0);
