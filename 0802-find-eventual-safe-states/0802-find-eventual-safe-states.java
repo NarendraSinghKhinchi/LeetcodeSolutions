@@ -1,0 +1,47 @@
+class Solution {
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+        List<Integer> list = new ArrayList<>();
+        int colors[] = new int[graph.length] ;
+        for(int i = 0 ; i < graph.length ; i++){
+            if(dfs(i , colors , graph))list.add(i);
+        }
+        return list ;
+//          int N = graph.length;
+//         int[] color = new int[N];
+//         List<Integer> ans = new ArrayList();
+
+//         for (int i = 0; i < N; ++i)
+//             if (dfs(i, color, graph))
+//                 ans.add(i);
+//         return ans;
+    }
+    public boolean dfs(int node , int color[] , int graph[][] ){
+        
+        if(color[node] > 0)return color[node] == 2 ;
+        
+        color[node] = 1 ;
+        
+        for(int nei : graph[node]){
+            if(color[nei] == 2)continue ;
+            if(color[nei] == 1)return false ;
+            boolean bool = dfs(nei , color , graph);
+            if(!bool)return false ;
+        }
+        
+        color[node] = 2 ;
+        return true ;
+//          if (color[node] > 0)
+//             return color[node] == 2;
+
+//         color[node] = 1;
+//         for (int nei: graph[node]) {
+//             if (color[nei] == 2)
+//                 continue;
+//             if (color[nei] == 1 || !dfs(nei, color, graph))
+//                 return false;
+//         }
+
+//         color[node] = 2;
+//         return true;
+    }
+}
