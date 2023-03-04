@@ -17,7 +17,7 @@ class Solution {
             }
         }
         if(hm.size() == 0)return -1 ;
-        if(hm.size() > 1)System.out.println("done done you're done");
+        if(hm.size() > 1)System.out.println("hurray you have two potential leaders!");
         for(int key : hm.keySet()){
             ArrayList<Integer> list = hm.get(key);
             if(list.size() == n-1)return key ;
