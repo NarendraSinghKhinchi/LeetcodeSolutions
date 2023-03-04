@@ -24,10 +24,13 @@ class Solution {
                 for(int dir[] : dirs){
                     int x = dir[0] + i ;
                     int y = dir[1] + j ;
-                    if(x >= 0 && y >= 0 && x < n && y < m && !visited[x][y] && grid[x][y] == 0 ){
+                    // if(x >= 0 && y >= 0 && x < n && y < m && !visited[x][y] && grid[x][y] == 0 ){
+                    //     q.add(new int[]{x , y});
+                    //     visited[x][y] = true ;
+                    // }
+                    if(x < 0 || y < 0 || x >= n || y >= m || visited[x][y] || grid[x][y] == 1)continue ;
                         q.add(new int[]{x , y});
                         visited[x][y] = true ;
-                    }
                 }
             }
             len++ ;
