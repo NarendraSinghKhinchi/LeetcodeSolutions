@@ -33,7 +33,7 @@ class Solution {
                     q.add(i-1);
                 }
                 ArrayList<Integer> nbrs = hm.get(arr[i]);
-                // System.out.println(nbrs);
+                
                 for(int nbr : nbrs){
                     if(!visited[nbr] && nbr != i){
                         q.add(nbr);
