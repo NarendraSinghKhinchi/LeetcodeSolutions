@@ -1,47 +1,29 @@
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
+        
         List<Integer> list = new ArrayList<>();
-        int colors[] = new int[graph.length] ;
+            // going to check every single node/state if it is safe or not
+        int colors[] = new int[graph.length];
         for(int i = 0 ; i < graph.length ; i++){
-            if(dfs(i , colors , graph))list.add(i);
+            if(safe(graph , i , colors))list.add(i);
         }
         return list ;
-//          int N = graph.length;
-//         int[] color = new int[N];
-//         List<Integer> ans = new ArrayList();
-
-//         for (int i = 0; i < N; ++i)
-//             if (dfs(i, color, graph))
-//                 ans.add(i);
-//         return ans;
     }
-    public boolean dfs(int node , int color[] , int graph[][] ){
-        
-        if(color[node] > 0)return color[node] == 2 ;
-        
-        color[node] = 1 ;
-        
-        for(int nei : graph[node]){
-            if(color[nei] == 2)continue ;
-            if(color[nei] == 1)return false ;
-            boolean bool = dfs(nei , color , graph);
-            if(!bool)return false ;
+    public boolean safe(int graph[][] , int v , int []colors){
+        // 0 means not visited by dfs
+        // 1 means visited by dfs and it is not safe 
+        // 2 means visited by dfs and it is safe
+        // 3 means visited by dfs and it is not safe
+        if(colors[v] == 1 || colors[v] == 3)return false ;
+        if(colors[v] == 2)return true ;
+        colors[v] = 1 ;
+        for(int nbr : graph[v]){
+            if(!safe(graph , nbr , colors)){
+                colors[nbr] = 3 ;
+                return false ;
+            }
         }
-        
-        color[node] = 2 ;
+        colors[v] = 2 ;
         return true ;
-//          if (color[node] > 0)
-//             return color[node] == 2;
-
-//         color[node] = 1;
-//         for (int nei: graph[node]) {
-//             if (color[nei] == 2)
-//                 continue;
-//             if (color[nei] == 1 || !dfs(nei, color, graph))
-//                 return false;
-//         }
-
-//         color[node] = 2;
-//         return true;
     }
 }
