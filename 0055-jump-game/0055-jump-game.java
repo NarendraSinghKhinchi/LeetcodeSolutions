@@ -5,7 +5,7 @@ class Solution {
         jump[nums.length-1] = true ;
         for(int i = nums.length - 2 ; i >= 0 ; i--){
             int curr = nums[i] ;
-            for(int j = 1 ; j <= curr ; j++){
+            for(int j = curr ; j >= 1 ; j--){
                 // System.out.println(i +  " " + curr) ;
                 if(j + i  < nums.length && jump[j+i]){
                     jump[i] = true ;
