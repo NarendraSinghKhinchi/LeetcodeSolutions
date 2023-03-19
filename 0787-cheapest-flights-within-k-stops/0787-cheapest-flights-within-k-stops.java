@@ -1,30 +1,31 @@
 class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         
-        HashMap<Integer,List<int[]>> adj = new HashMap<>();
-        for (int[] i : flights)
-            adj.computeIfAbsent(i[0], value -> new ArrayList<>()).add(new int[] { i[1], i[2] });
-            
-        int stops[] = new int[n] ;
-        Arrays.fill(stops , Integer.MAX_VALUE) ;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[0]-b[0]) ;
+        ArrayList<ArrayList<int[]>> list = new ArrayList<>();
+        for(int i = 0 ; i < n ; i++)list.add(new ArrayList<>());
         
-        pq.offer(new int[]{0 , src , 0});
+        for(int flight[] : flights){
+            list.get(flight[0]).add(new int[]{flight[1] , flight[2]});
+        }
+        int visited[] = new int[n];
+        Arrays.fill(visited, Integer.MAX_VALUE);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> Integer.compare(a[1] , b[1]));
+        // nextnode , cost , stops/k
+        pq.add(new int[]{src , 0 , 0});
+        visited[src] = 0 ;
         while(pq.isEmpty() == false){
-            int []temp = pq.poll();
-            int dist = temp[0] ;
-            int node = temp[1] ;
-            int steps = temp[2] ;
-            if(steps > stops[node] || steps > k + 1)continue ;
-            stops[node] = steps ;
-            if(node == dst)return dist ;
-            if(!adj.containsKey(node))continue ;
+            int rem[] = pq.remove();
+            if(rem[0] == dst && rem[2]-1 <= k)return rem[1];
+            visited[rem[0]] = rem[2] ;
+            if(rem[2]-1 > k) continue ;
             
-            for(int[] a : adj.get(node)){
-                pq.offer(new int[]{dist+a[1] , a[0] , steps+1});
+            for(int[] nbrs : list.get(rem[0])){
+                if(rem[2]+1 < visited[nbrs[0]]){
+                    pq.add(new int[]{nbrs[0] , rem[1]+nbrs[1] , rem[2]+1});
+                }
             }
+            
         }
         return -1 ;
     }
-    
 }
