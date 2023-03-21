@@ -1,56 +1,34 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        
-        Interval in = new Interval(newInterval[0] , newInterval[1]);
-        Stack<Interval> st = new Stack<>();
-        for(int inter[] : intervals){
-            Interval curr = new Interval(inter[0],inter[1]);
-            if(in != null && curr.start > in.start){
-                st.push(in) ;
-                in = null ;
+        ArrayList<int[]> list = new ArrayList<>() ;
+        boolean bool = true ;
+        for(int i = 0 ; i < intervals.length ; i++){
+            int inter[] = intervals[i] ;
+            if(inter[0] >= newInterval[0] && bool){
+                in(list , newInterval) ;
+                bool = false ;
             }
-            while(st.size() > 1){
-                Interval first = st.pop() ;
-                Interval second = st.pop();
-                if(first.start <= second.end){
-                    first.start = Math.min(first.start , second.start);
-                    first.end = Math.max(first.end , second.end);
-                    st.push(first);
-                }else{
-                    st.push(second);
-                    st.push(first);
-                    break;
-                }
-            }
-            st.push(curr);
+            in(list , inter);
         }
-        if(in != null)st.push(in);
-         while(st.size() > 1){
-                Interval first = st.pop() ;
-                Interval second = st.pop();
-                if(first.start <= second.end){
-                    first.start = Math.min(first.start , second.start);
-                    first.end = Math.max(first.end , second.end);
-                    st.push(first);
-                }else{
-                    st.push(second);
-                    st.push(first);
-                    break;
-                }
-            }
-        int ans[][] = new int[st.size()][2];
-        for(int i = ans.length - 1 ; i >= 0 ; i--){
-            Interval pop = st.pop();
-            ans[i][0] = pop.start ;
-            ans[i][1] = pop.end ;
+        if(bool)in(list , newInterval) ;
+        int ans[][] = new int[list.size()][] ;
+        for(int i = 0 ; i < list.size() ; i++){
+            ans[i] = list.get(i);
         }
         return ans ;
     }
-    class Interval{
-        int start , end ;
-        Interval(int s , int e){
-            this.start = s ;
-            this.end = e ;
+    private void in(ArrayList<int[]> list , int inter[]){
+        
+        if(list.size() == 0){
+            list.add(inter);
+            return ;
+        }
+        int prev[] = list.get(list.size() - 1) ;
+        if(prev[1] >= inter[0] ){
+            prev[0] = Math.min(prev[0] , inter[0]) ;
+            prev[1] = Math.max(prev[1] , inter[1]) ; 
+        }else{
+            list.add(inter);
         }
     }
 }
