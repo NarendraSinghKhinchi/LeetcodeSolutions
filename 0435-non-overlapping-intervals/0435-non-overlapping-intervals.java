@@ -11,8 +11,8 @@ class Solution {
         });
         // curent start must be strictly less than previous end to make overlapping
         
-        ArrayList<int[]> list = new ArrayList<>();
-        list.add(intervals[0]);
+       
+        
         int count = 0 ;
         int prevend = intervals[0][1] ;
         for(int i = 1 ; i < intervals.length ; i++){
