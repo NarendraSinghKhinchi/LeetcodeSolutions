@@ -9,22 +9,29 @@
  * }
  */
 class Solution {
-    private ListNode head ;
+    ListNode head ;
+    int size = 0 ;
     public Solution(ListNode head) {
         this.head = head ;
-    }
-    
-    public int getRandom() {
-        int scope = 1 ;
-        int chosenValue = 0 ;
-        ListNode curr = this.head ;
-        while(curr != null){
-            if(Math.random() < 1.0/scope)
-                chosenValue = curr.val ;
-            scope+=1 ;
-            curr = curr.next ;
+        ListNode temp = head ;
+        while(temp != null){
+            this.size++ ;
+            temp = temp.next ;
         }
-        return chosenValue ;
+    }
+    public int get(int idx){
+        ListNode temp = head ;
+        while(temp != null){
+            if(idx == 0)return temp.val ;
+            idx-- ;
+            temp = temp.next ;
+        }
+        return -1 ;
+    }
+    public int getRandom() {
+        int idx = (int) (Math.random() * this.size) ;
+        
+        return get(idx);
     }
 }
 
