@@ -22,13 +22,13 @@ class Solution {
     public void union(int dis[] ,int rank[] , int x , int y){
         int p = find(dis , x);
         int q = find(dis , y);
-        if(rank[p] < rank[q]){
+        // if(rank[p] < rank[q]){
             dis[p] = q ;
             rank[q]++ ;
-        }else{
-            dis[q] = p ;
-            rank[p]++ ;
-        }
+        // }else{
+        //     dis[q] = p ;
+        //     rank[p]++ ;
+        // }
         
         
     }
