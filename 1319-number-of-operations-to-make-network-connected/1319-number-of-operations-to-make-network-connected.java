@@ -1,34 +1,35 @@
 class Solution {
     public int makeConnected(int n, int[][] connections) {
         if(connections.length < n-1)return -1 ;
-        HashMap<Integer,ArrayList<Integer>> hm = new HashMap<>();
-        for(int i = 0 ; i < n; i++){
-            hm.put(i , new ArrayList<>()) ;
+        int dis[] = new int[n];
+        int rank[] = new int[n];
+        for(int i = 0 ; i < n ; i++)dis[i] = i ;
+        int count = 0 ;
+        for(int con[] : connections){
+            int p = find(dis , con[0]);
+            int q = find(dis , con[1]) ;
+            if(p != q){
+                union(dis , rank , con[0] , con[1]) ;
+                count += 1 ;
+            }   
         }
-        for(int i = 0 ; i < connections.length ; i++){
-            hm.get(connections[i][0]).add(connections[i][1]) ;
-            hm.get(connections[i][1]).add(connections[i][0]) ;
-        }
-        // System.out.println(hm) ;
-        boolean visited[] = new boolean[n] ;
-        int count = 0 ; 
-        for(int i = 0 ; i < visited.length ; i++){
-            if(!visited[i]){
-                visited[i] = true ;
-                count++ ;
-                dfs(hm, visited , i) ;
-            }
-        }
-        return count-1 ;
+        return (n-count)-1 ;
     }
-    public void dfs(HashMap<Integer,ArrayList<Integer>> graph, boolean []visited , int v){
-        
-        ArrayList<Integer> list = graph.get(v) ;
-        for(int x : list){
-            if(!visited[x]){
-                visited[x] = true ;
-                dfs(graph , visited , x) ;
-            }
+    public int find(int dis[] , int no){
+        if(dis[no]  == no)return no ;
+        return dis[no] = find(dis , dis[no]);
+    }
+    public void union(int dis[] ,int rank[] , int x , int y){
+        int p = find(dis , x);
+        int q = find(dis , y);
+        if(rank[p] < rank[q]){
+            dis[p] = q ;
+            rank[q]++ ;
+        }else{
+            dis[q] = p ;
+            rank[p]++ ;
         }
+        
+        
     }
 }
