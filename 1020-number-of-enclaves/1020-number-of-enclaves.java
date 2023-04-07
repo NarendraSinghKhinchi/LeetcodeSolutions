@@ -1,29 +1,41 @@
 class Solution {
     public int numEnclaves(int[][] grid) {
+        int row = grid.length - 1 ;
+        int col = grid[0].length - 1 ;
+        for(int i = 0 ; i <= col ; i++ ){
+            // first row
+            if(grid[0][i] == 1){
+                dfs(grid , 0 , i);
+            } 
+            // last row
+            if(grid[row][i] == 1){
+                dfs(grid , row , i);
+            }
+        }
+        for(int i = 0 ; i <= row ;i++){
+            //  first col
+            if(grid[i][0] == 1){
+                dfs(grid , i , 0);
+            }
+            // last col
+            if(grid[i][col] == 1){
+                dfs(grid , i , col);
+            }
+        }
         int count = 0 ;
-        boolean visited[][] = new boolean[grid.length][grid[0].length];
-        for(int row =0 ; row < grid.length ; row++){
-            for(int col = 0 ; col < grid[0].length ; col++){
-                if(grid[row][col] == 1 && visited[row][col] == false){
-                    boolean found[] = new boolean[1] ;
-                    int curr = connect(grid , row , col , visited , found);
-                    if(found[0] == false)count += curr ;
-                }
+        for(int i = 0 ; i <= row ; i++){
+            for(int j = 0 ; j <= col ; j++){
+                if(grid[i][j] == 1)count++ ;
             }
         }
         return count ;
     }
-    public int connect(int grid[][] , int row , int col , boolean visited[][] , boolean found[] ){
-        if(row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || visited[row][col] || grid[row][col] == 0 )return 0 ;
-        
-        visited[row][col] = true ;
-        int sum = connect(grid , row+1 , col , visited , found);
-        sum += connect(grid, row-1 , col , visited , found);
-        sum += connect(grid , row , col+1 , visited , found);
-        sum += connect(grid, row , col-1 , visited , found);
-        
-        if(row == 0 || col == 0 || row == grid.length - 1 || col == grid[row].length - 1)found[0] = true ;
-        return sum+1 ;
+    public void dfs(int grid[][] , int r , int c){
+        if(r < 0 || c < 0 || r >= grid.length || c >= grid[0].length || grid[r][c] != 1)return ;
+        grid[r][c] = 0 ;
+        dfs(grid , r+1 , c);
+        dfs(grid , r-1 , c);
+        dfs(grid , r , c+1);
+        dfs(grid , r , c-1) ;
     }
-    
 }
