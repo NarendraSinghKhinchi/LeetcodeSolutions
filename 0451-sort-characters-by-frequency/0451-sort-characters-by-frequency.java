@@ -1,7 +1,7 @@
 class Solution {
     public String frequencySort(String s) {
-        PriorityQueue<String> pq = new PriorityQueue<>(new Comparator<String>(){
-            public int compare(String a , String b){
+        PriorityQueue<StringBuilder> pq = new PriorityQueue<>(new Comparator<StringBuilder>(){
+            public int compare(StringBuilder a , StringBuilder b){
                 return b.length() - a.length() ;
             }
         });
@@ -14,7 +14,7 @@ class Solution {
             arr[ch-'0'].append(ch);
         }
         for(int i = 0 ; i < 200 ; i++){
-            pq.add(arr[i].toString());
+            pq.add(arr[i]);
         }
         StringBuilder ans = new StringBuilder();
         while(!pq.isEmpty()){
