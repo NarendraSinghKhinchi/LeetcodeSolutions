@@ -14,13 +14,13 @@ class Solution {
             return ;
         }
         for(int i = 0 ; i < nums.length ; i++){
-            if(selected[i] == false){
+            if(selected[i])continue ;
                 curr.add(nums[i]);
                 selected[i] = true ;
                 dfs(list , curr , nums , selected);
                 selected[i] = false ;
                 curr.remove(curr.size()-1);
-            }
+            
         }
     }
 }
