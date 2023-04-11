@@ -1,5 +1,7 @@
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return new ArrayList<>();
         List<List<Integer>> list = new ArrayList<>();
         List<Integer> curr = new ArrayList<>();
         boolean selected[] = new boolean[nums.length];
