@@ -1,18 +1,24 @@
 class Solution {
     public int minInsertions(String s) {
-        
-        int[][] dp = new int[s.length()][s.length()];
-        
-        for (int i = s.length() - 1; i >= 0; i--) {
-            dp[i][i] = 1;
-            for (int j = i+1; j < s.length(); j++) {
-                if (s.charAt(i) == s.charAt(j)) {
-                    dp[i][j] = dp[i+1][j-1] + 2;
-                } else {
-                    dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]);
-                }
-            }
+        int dp[][] = new int[s.length()][s.length()] ;
+        for(int d[] : dp){
+            Arrays.fill(d , -1);
         }
-        return s.length() - dp[0][s.length()-1];
+        int ans = insert(s , 0 , s.length()-1 , dp);
+        return ans ;
+    }
+    public int insert(String s , int i , int j , int dp[][]){
+        if(i >= j)return 0 ;
+        if(dp[i][j] != -1)return dp[i][j] ;
+        char ch = s.charAt(i);
+        char ch1 = s.charAt(j);
+        
+        if(ch == ch1){
+            return dp[i][j] = insert(s , i+1 , j-1 ,dp);
+        }
+        int left = insert(s , i , j-1 , dp) + 1;
+        int right = insert(s , i+1 , j , dp) + 1;
+        dp[i][j] =  Math.min(left , right);
+        return dp[i][j] ;
     }
 }
