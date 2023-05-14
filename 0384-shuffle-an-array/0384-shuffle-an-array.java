@@ -1,26 +1,27 @@
 class Solution {
-    int arr[] ;
+    int nums[] ;
+    
     public Solution(int[] nums) {
-        this.arr = nums ;
+        this.nums = nums ;
+        
     }
     
     public int[] reset() {
-        return arr ;
+        return nums ;
     }
     
     public int[] shuffle() {
-        int shuf[] = new int[arr.length];
-        HashSet<Integer> set = new HashSet<>();
         int i = 0 ;
-        while(i < shuf.length){
-            int random = (int)(Math.random()*arr.length);
-            if(!set.contains(random)){
-                set.add(random);
-                shuf[i] = arr[random];
-                i++ ;
+        int arr[] = new int[nums.length];
+        HashSet<Integer> set = new HashSet<>();
+        while(i < nums.length){
+            int idx = (int)(Math.random()*(nums.length));
+            if(!set.contains(idx)){
+                arr[i++] = nums[idx];
+                set.add(idx);
             }
         }
-        return shuf ;
+        return arr ;
     }
 }
 
