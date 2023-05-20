@@ -6,7 +6,7 @@ var curry = function(fn) {
     
     return curried = (...args)=>{
         if(fn.length !== args.length){
-            return curried.bind(null , ...args);
+            return curried.bind(this , ...args);
         }
         return fn(...args);
     }
