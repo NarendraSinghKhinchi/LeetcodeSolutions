@@ -1,39 +1,38 @@
 class Solution {
     public int shortestBridge(int[][] grid) {
-        this.q = new ArrayDeque<>() ;
-        boolean visited[][] = new boolean[grid.length][grid.length];
+        this.q = new ArrayDeque<>();
+        boolean visited[][] = new boolean[grid.length][grid[0].length];
         for(int i = 0 ; i < grid.length ; i++){
-            boolean b = false ;
-            for(int j = 0 ; j < grid.length ; j++){
+            boolean flag = false ;
+            for(int j = 0 ; j < grid[0].length ; j++){
                 if(grid[i][j] == 1){
                     dfs(grid , i , j , visited);
-                    b = true ;
+                    flag = true ;
                     break ;
                 }
             }
-            if(b)break ;
+            if(flag)break ;
         }
-        // visited = null ;
-        // System.out.println(q);
         int count = 0 ;
-        int dirs[][] = {{1,0} , {0,1} , {-1,0} , {0,-1}};
-        while(q.size() > 0){
+        int dirs[][] = new int[][]{{-1,0},{1,0},{0,-1},{0,1}};
+        while(!q.isEmpty()){
             count++ ;
-            int size = q.size() ;
+            
+            int size = q.size();
             for(int i = 1 ; i <= size ; i++){
                 int rem[] = q.remove();
-                for(int dir[] :dirs ){
-                    int ro = rem[0] + dir[0] ;
-                    int co = rem[1] + dir[1] ;
-                    if(ro < 0 || co < 0 || ro >= grid.length || co >= grid.length || grid[ro][co] == 2)continue ;
-                    if(grid[ro][co] == 1)return count-1 ;
-                    grid[ro][co] = 2 ;
-                    q.add(new int[]{ro , co}) ;
+                for(int dir[] : dirs){
+                    int nr = rem[0]+dir[0] ;
+                    int nc = rem[1]+dir[1] ;
+                    if(nr < 0 || nc < 0 || nr == grid.length || nc == grid[0].length || visited[nr][nc] )continue ;
+                    if(grid[nr][nc] == 1)return count-1 ;
+                    visited[nr][nc] = true ;
+                    q.add(new int[]{nr , nc});
                 }
-                // System.out.println(q);
             }
         }
-        return -1 ;
+        
+        return -1;
     }
     Queue<int[]> q ;
     public void dfs(int [][] grid , int i , int j , boolean visited[][]){
