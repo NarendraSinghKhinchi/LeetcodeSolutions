@@ -39,14 +39,18 @@ class Solution {
         // Code here
         ArrayList<Integer> list = new ArrayList<>();
         Queue<Integer> q = new ArrayDeque<>();
-        boolean visited[] = new boolean[V];
         q.add(0);
-        while(q.size()>0){
+        boolean visit[] = new boolean[V];
+        while(!q.isEmpty()){
             int rem = q.remove();
-            if(visited[rem])continue;
-            visited[rem]=true;
             list.add(rem);
-            for(int x : adj.get(rem))q.add(x);
+            
+            for(int nbr : adj.get(rem)){
+                if(!visit[nbr]){
+                    q.add(nbr);
+                    visit[nbr] = true ;
+                }
+            }
         }
         return list ;
     }
