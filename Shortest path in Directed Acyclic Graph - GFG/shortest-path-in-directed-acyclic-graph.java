@@ -31,31 +31,37 @@ class Main {
 //User function Template for Java
 class Solution {
 
-	public int[] shortestPath(int n,int m, int[][] edges) {
+	public int[] shortestPath(int N,int M, int[][] edges) {
 		//Code here
+		int ans[] = new int[N] ;
+		Arrays.fill(ans , -1);
 		ArrayList<ArrayList<int[]>> list = new ArrayList<>();
-        for(int i = 0 ; i < n ; i++)list.add(new ArrayList<>());
-        for(int ed[] : edges){
-            list.get(ed[0]).add(new int[]{ed[1] , ed[2]});
-        }
-        int src = 0;
-        int shortt[] = new int[n];
-        Arrays.fill(shortt , Integer.MAX_VALUE);
-        shortest(0 , list , shortt , new boolean[n] , 0);
-        for(int i = 0 ; i < n ; i++)
-            if(shortt[i] == Integer.MAX_VALUE)
-                shortt[i] = -1 ;
-                
-        return shortt ;
-	}
-	public void shortest(int v ,ArrayList<ArrayList<int[]>>list ,int shortt[] , boolean vis[] , int dis  ){
-	    if(vis[v])return ;
-	    vis[v] = true ;
-	    shortt[v] = Math.min(dis , shortt[v]);
-	    
-	    for(int x[] : list.get(v))
-	        shortest(x[0] , list , shortt , vis , dis+x[1]);
-	   
-	   vis[v] = false ;
+		for(int i = 0 ; i < N ; i++)list.add(new ArrayList<>());
+		for(int ed[] : edges){
+		    list.get(ed[0]).add(new int[]{ed[1], ed[2]});
+		}
+		
+		Queue<int[]> q = new ArrayDeque<>();
+		q.add(new int[]{0,0,0});
+		ans[0] = 0 ;
+		while(!q.isEmpty()){
+		    
+		    int rem[] = q.remove();
+		    int src = rem[0] ;
+		    int dest = rem[1] ;
+		    int wei = rem[2] ;
+		    
+		    for(int[] nbr : list.get(dest)){
+		        int wt = nbr[1] ;
+		        int de = nbr[0] ;
+		        if(wt+wei <= ans[de] || ans[de] == -1){
+		            q.add(new int[]{dest , de , wt+wei});
+		            ans[de] = wt+wei ;
+		        }
+		        
+		    }
+		}
+		
+		return ans ;
 	}
 }
