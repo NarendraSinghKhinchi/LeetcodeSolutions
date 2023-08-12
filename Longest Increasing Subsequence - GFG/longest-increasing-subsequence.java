@@ -43,18 +43,38 @@ class Solution
     static int longestSubsequence(int size, int a[])
     {
         // code here
+        int longest = 0 ;
         int dp[] = new int[size];
-        int maxi = 0 ;
-        for(int i = 0 ; i < size ; i++){
-            int max = 0 ;
-            for(int j =0 ; j < i ; j++){
-                if(a[i] > a[j])
-                max = Math.max(max , dp[j]);
-            }
-            dp[i] = max+1 ;
-            maxi = Math.max(maxi , dp[i]);
-        }
-        return maxi ;
+        ArrayList<Integer> list = new ArrayList<>();
         
+        for(int i = 0 ; i < a.length ; i++){
+            int idx = helper(a[i] , list);
+            dp[i] = idx+1 ;
+            longest = Math.max(dp[i] , longest);
+        }
+        
+        return longest ;
+    }
+    static int helper(int ele , ArrayList<Integer> list ){
+        int low = 0 ;
+        int hi = list.size()-1 ; 
+        int pos = list.size();
+        
+        while(low <= hi){
+            int mid = (low+hi)/2 ;
+            if(list.get(mid) >= ele ){
+                pos = mid ;
+                hi = mid-1 ;
+            }else{
+                low = mid+1 ;
+            }
+        }
+        
+        if(pos == list.size()){
+            list.add(ele);
+        }else{
+            list.set(pos , ele);
+        }
+        return pos ;
     }
 } 
