@@ -31,13 +31,15 @@ class GFG {
 // } Driver Code Ends
 
 
+
+
 // User function Template for Java
 
 class Solution {
     int minimumMultiplications(int[] arr, int start, int end) {
 
         // Your code here
-        
+        if(end == start)return 0 ;
         
         PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)-> Integer.compare(a[1],b[1]));
         pq.add(new int[]{start , 0});
